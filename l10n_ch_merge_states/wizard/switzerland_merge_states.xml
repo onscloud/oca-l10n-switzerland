@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="switzerland_merge_states_form_view" model="ir.ui.view">
+        <field name="name">switzerland.merge.states.form</field>
+        <field name="model">switzerland.merge.states</field>
+        <field name="arch" type="xml">
+            <form string="Merge wizard">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            Merge States
+                        </h1>
+                    </div>
+                    <div>
+                        <p>Language Options</p>
+                        <ul>
+                            <li
+                            >Multilingual : Use the main regional language for each state.</li>
+                            <li>German : Keep only states in german.</li>
+                            <li>Italian : Keep only states in italian.</li>
+                            <li>French : Keep only states in french.</li>
+                        </ul>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="lang" />
+                        </group>
+                    </group>
+                    <div>
+                        <p>The discarded states are archived and the wizard will
+                            reassign every related Many2one and Many2many fields to the chosen state so that
+                            logic relying on states is not lost.</p>
+                        <p class="text-warning">It is strongly encourged to try the
+                        wizard on a test database before running it in production.</p>
+                    </div>
+                    <button
+                        name="merge_states"
+                        string="Merge States"
+                        class="oe_highlight"
+                        type="object"
+                    />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="switzerland_merge_states_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">switzerland.merge.states</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <record id="switzerland_merge_state_menu" model="ir.ui.menu">
+        <field name="name">Switzerland Merge States</field>
+        <field name="sequence" eval="99" />
+        <field name="parent_id" ref="base.menu_custom" />
+        <field name="action" ref="switzerland_merge_states_action" />
+        <field name="groups_id" eval="[(6,0, [ref('base.group_erp_manager')])]" />
+    </record>
+</odoo>
